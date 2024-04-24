@@ -6,7 +6,7 @@ import "./style.scss";
 
 const Slider = () => {
   const { data } = useData(); /* destructuration de useData,recuperation de data (events.json) */
-  const [index, setIndex] = useState(0);
+  let [index, setIndex] = useState(0);
 
   /* data?.focus : Utilisation de l'opérateur de faculté optionnelle (?.) pour accéder à la propriété focus de l'objet data. Cela permet de s'assurer que data est défini avant d'accéder à focus. Si data est null ou undefined, byDateDesc sera également null ou undefined. */
 
@@ -18,28 +18,23 @@ Si la comparaison retourne false, cela signifie que evtB doit être placé avant
 
 /* Le résultat final, byDateDesc, est un tableau trié par date dans l'ordre décroissant. Si data?.focus est null ou undefined, byDateDesc sera également null ou undefined.
 Ce tableau contient uniquement des objets focus trié par date croissante  */
+
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
     new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
   );
 
-
   const nextCard = () => {
-    setTimeout(
-      () => setIndex(index < byDateDesc.length-1 ? index + 1 : 0),/* ajout de -1 a length */
-      5000
-    );
-    /* console.log(index) */
-  };
-  useEffect(() => {
-    nextCard();
-    
-  },[nextCard]);/* AJOUT DU TABLEAU DES DEPENDANCES */
+    setIndex(index < byDateDesc.length-1 ? index + 1 : 0)/* ajout de -1 a length ? */     
+        
+  }; 
+ 
+ 
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (
-        <>
+        <>{/* ce fragment set a encadrer les inputs */}
           <div
-            key={idx} /*une erreur en moins dans la console   */ 
+            key={event.title} /* une erreur en moins dans la console */ 
             className={`SlideCard SlideCard--${index === idx ? "display" : "hide"
               }`}
           >          
@@ -53,13 +48,15 @@ Ce tableau contient uniquement des objets focus trié par date croissante  */
             </div>
           </div>
           <div className="SlideCard__paginationContainer">
-            <div className="SlideCard__pagination">
-              {byDateDesc.map((_, radioIdx) => (                
+            <div className="SlideCard__pagination"> {/* ici on gere les bullets */}
+              {byDateDesc.map((ev, bulletIdx) => (                
                 <input
-                  key={radioIdx} /* une erreur en moins dans la console    */            
+                  key={ev.date} /* une erreur en moins dans la console    */            
                   type="radio"
-                  name="radio-button"
-                 defaultChecked={idx === radioIdx} /* checked devient defaultChecked */
+                  name="radio-button"                  
+                  defaultChecked={index === bulletIdx} /* checked devient defaultChecked */
+                  onChange={() => {setIndex(bulletIdx)                   
+                  }}
                 />
                 
               ))}

@@ -3,6 +3,7 @@ import ServiceCard from "../../components/ServiceCard";
 import EventCard from "../../components/EventCard";
 import PeopleCard from "../../components/PeopleCard";
 
+
 import "./style.scss";
 import EventList from "../../containers/Events";
 import Slider from "../../containers/Slider";
@@ -14,6 +15,9 @@ import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
   const {last} = useData()
+  console.log("last",last)
+  console.log("useData.data",useData().data)
+  
   return <>
     <header>
       <Menu />
@@ -115,7 +119,7 @@ const Page = () => {
     </main>
     <footer className="row">
       <div className="col presta">
-        <h3>Notre derniére prestation</h3>
+        <h3>Notre dernière prestation</h3>
         <EventCard
           imageSrc={last?.cover}
           title={last?.title}
