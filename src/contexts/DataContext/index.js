@@ -1,3 +1,18 @@
+
+
+/* 
+Le composant DataProvider offre plusieurs possibilités d'utilisation dans ton application :
+
+1. Fournir des données au sein de l'application : DataProvider encapsule les données et les erreurs dans un contexte, ce qui permet à ses enfants d'accéder à ces données où qu'ils soient dans l'arbre de composants.
+
+2. Accéder aux données et aux erreurs : En utilisant le hook useData, les composants peuvent facilement accéder aux données et aux erreurs fournies par DataProvider.
+
+3. Appeler des méthodes API : Tu peux utiliser directement l'objet api pour appeler les méthodes définies dans celui-ci. Cela te permet d'effectuer des appels réseau et de gérer les données depuis n'importe quel composant de ton application.
+
+4.Gérer les effets de chargement initial : DataProvider utilise useEffect pour charger les données initiales lors du premier rendu, assurant ainsi que les données sont disponibles dès que nécessaire.
+
+En résumé, DataProvider simplifie la gestion des données et des appels API dans ton application React, offrant une approche centralisée pour la récupération et la gestion des données.
+ */
 import PropTypes from "prop-types"; // Import de PropTypes pour la validation des types de propriétés
 import {
   createContext, // Fonction fournie par React pour créer un contexte
@@ -30,7 +45,7 @@ export const DataProvider = ({ children }) => { // Composant DataProvider qui fo
   const [error, setError] = useState(null); // État pour stocker les erreurs
   const [data, setData] = useState(null);   // État pour stocker les données
 
-  const getData = useCallback(async () => { // Fonction memorisée pour charger les données
+  const getData = useCallback(async () => { // Fonction memorisée pour charger les données uniquement au premier rendu 
     try {
       setData(await api.loadData()); // Charge les données à partir de l'API
       
@@ -41,7 +56,7 @@ export const DataProvider = ({ children }) => { // Composant DataProvider qui fo
   
   useEffect(() => { // Effet de bord qui se déclenche à chaque rendu
     if (data) return; // Si les données sont déjà chargées, ne fait rien
-    getData(); // Sinon, charge les données
+    getData(); // Sinon, charge les données //PAS DE TABLEAU DE DEPENDANCES ?
   });
   
   return (
@@ -56,6 +71,8 @@ export const DataProvider = ({ children }) => { // Composant DataProvider qui fo
     </DataContext.Provider>
   );
 };
+
+
 
 DataProvider.propTypes = {
   children: PropTypes.node.isRequired, // Propriété children qui doit être un nœud valide
