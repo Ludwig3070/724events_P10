@@ -17,7 +17,8 @@ const Page = () => {
   const {data} = useData()   // Utilisation du hook useData pour obtenir les données  MODIF ICI CAR LAST WAS NOT DEFINED
   const {last}  = data || {};  // le || {} evite le undefined et les problemes ATTENTION last =[{...}]
   
-   
+  
+  
   return (
     <>
       <header>
@@ -126,13 +127,13 @@ const Page = () => {
           <h3>Notre dernière prestation</h3>
           {/* Affichage de la dernière prestation dans une carte d'événement */}
           {/* ICI MODIF DE CODE  last&& permet d'eviter d'avoir une erreur si last[0] n'est pas encore defini */}
-          <EventCard
-            imageSrc={last&&last[0]?.cover}
-            title={last&&last[0]?.title}
-            date={last&&new Date(last[0]?.date)}
+          { last && <EventCard
+            imageSrc={last[0].cover}
+            title={last[0].title}
+            date={new Date(last[0].date)}
             small
             label="boom"
-          />
+          />}
         </div>
         <div className="col contact">
           <h3>Contactez-nous</h3>

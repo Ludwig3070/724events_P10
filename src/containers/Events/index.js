@@ -21,7 +21,7 @@ const EventList = () => {
 
   // Filtrage des événements en fonction du type et de la pagination
   const filteredEvents = (
-    (!type ? data?.events : data?.events) || []
+    (!type ? data?.events : data?.events.filter(event => event.type === type)) || []
   ).filter((event, index) => {
     if (
       (currentPage - 1) * PER_PAGE <= index &&
@@ -43,6 +43,9 @@ const EventList = () => {
 
   // Création d'une liste des types d'événements uniques
   const typeList = new Set(data?.events.map((event) => event.type));
+
+ console.log("filteredEvents",filteredEvents);
+  
   
   return (
     <>
@@ -55,7 +58,8 @@ const EventList = () => {
           {/* Sélecteur de type d'événement */}
           <Select
             selection={Array.from(typeList)} // Liste des types d'événements
-            onChange={(value) => (value ? changeType(value) : changeType(null))}
+            onChange={(type) => (type ? changeType(type) : changeType(null))}
+            
           />
           {/* Liste des événements */}
           <div id="events" className="ListContainer">

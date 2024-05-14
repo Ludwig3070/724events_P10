@@ -1,9 +1,10 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
+// Désactive les avertissements liés à l'accessibilité pour les éléments non interactifs et les événements de clic sans événements de clavier
+
 import { useState } from "react";
 import PropTypes from "prop-types";
-
-import "./style.scss";
+import "./style.scss"; // Importe les styles du composant
 
 const Select = ({
   selection,
@@ -11,33 +12,51 @@ const Select = ({
   name,
   titleEmpty,
   label,
-  type = "normal",
+  type = "normal", // Par défaut, le type est "normal"
 }) => {
-  const [value, setValue] = useState();
-  const [collapsed, setCollapsed] = useState(true);
+  // Définition du composant Select
+  const [value, setValue] = useState(); // État pour stocker la valeur sélectionnée
+  const [collapsed, setCollapsed] = useState(true); // État pour gérer l'affichage rétracté ou déplié du sélecteur
+
+
+  // Fonction pour changer la valeur sélectionnée
   const changeValue = (newValue) => {
-    onChange();
-    setValue(newValue);
-    setCollapsed(newValue);
+    setValue(newValue); // Met à jour la valeur sélectionnée
+    onChange(newValue); // Appelle la fonction onChange passée en props   
+    setCollapsed(true); // Rétracte le sélecteur
   };
+
+
+
   return (
     <div className={`SelectContainer ${type}`} data-testid="select-testid">
-      {label && <div className="label">{label}</div>}
+      {/* Div pour le conteneur du sélecteur */}
+      {label && <div className="label">{label}</div>} {/* Affiche le label si fourni */}
+
       <div className="Select">
+        {/* Div pour le sélecteur */}
         <ul>
           <li className={collapsed ? "SelectTitle--show" : "SelectTitle--hide"}>
+            {/* Affiche la valeur sélectionnée ou "Toutes" si aucune valeur sélectionnée */}
             {value || (!titleEmpty && "Toutes")}
           </li>
+
           {!collapsed && (
             <>
+              {/* Affiche l'option "Toutes" si titleEmpty est false */}
               {!titleEmpty && (
                 <li onClick={() => changeValue(null)}>
+                  {/* Input radio pour l'option "Toutes" */}
                   <input defaultChecked={!value} name="selected" type="radio" />{" "}
                   Toutes
                 </li>
               )}
-              {selection.map((s) => (
-                <li key={s} onClick={() => changeValue(s)}>
+
+              {/* Affiche les options sélectionnables */}
+              {selection.map((s) => ( //  Mappe chaque élément de la liste selection à un élément de liste <li> avec un input radio correspondant.
+                <li key={s} onClick={() => changeValue(s)}> 
+                { /* Crée un élément de liste pour chaque élément de selection. La prop key est utilisée pour l identification unique de chaque élément de liste. Lorsque cet élément de liste est cliqué, il déclenche la fonction changeValue avec s comme argument. */}
+                  {/* Input radio pour chaque option */}
                   <input
                     defaultChecked={value === s}
                     name="selected"
@@ -49,16 +68,21 @@ const Select = ({
             </>
           )}
         </ul>
+
+        {/* Input hidden pour stocker la valeur sélectionnée */}
         <input type="hidden" value={value || ""} name={name} />
+
+        {/* Bouton pour ouvrir/fermer le sélecteur */}
         <button
           type="button"
-          data-testid="collapse-button-testid"
-          className={collapsed ? "open" : "close"}
+          data-testid="collapse-button-testid" // Un attribut pour tester l'élément dans les tests automatisés.
+          className={collapsed ? "open" : "close"} // Ajoute la classe "open" si collapsed est true, sinon ajoute la classe "close". Ces classes sont utilisées pour appliquer des styles différents au bouton en fonction de son état.
           onClick={(e) => {
             e.preventDefault();
-            setCollapsed(!collapsed);
+            setCollapsed(!collapsed);// change l'etat de collapsed au clic
           }}
         >
+          {/* Icône de flèche SVG */}
           <Arrow />
         </button>
       </div>
@@ -66,6 +90,7 @@ const Select = ({
   );
 };
 
+// Composant pour l'icône de flèche
 const Arrow = () => (
   <svg
     width="21"
@@ -81,21 +106,23 @@ const Arrow = () => (
   </svg>
 );
 
+// Définition des types de props attendus pour le composant Select
 Select.propTypes = {
-  selection: PropTypes.arrayOf(PropTypes.string).isRequired,
-  onChange: PropTypes.func,
-  name: PropTypes.string,
-  titleEmpty: PropTypes.bool,
-  label: PropTypes.string,
-  type: PropTypes.string,
-}
+  selection: PropTypes.arrayOf(PropTypes.string).isRequired, // Tableau de strings pour les options
+  onChange: PropTypes.func, // Fonction appelée lors d'un changement de valeur
+  name: PropTypes.string, // Nom du sélecteur
+  titleEmpty: PropTypes.bool, // Booléen pour indiquer si "Toutes" doit être affiché ou non
+  label: PropTypes.string, // Texte du label
+  type: PropTypes.string, // Type du sélecteur
+};
 
+// Définition des valeurs par défaut pour les props non fournies
 Select.defaultProps = {
-  onChange: () => null,
-  titleEmpty: false,
-  label: "",
-  type: "normal",
-  name: "select",
-}
+  onChange: () => null, // Fonction vide par défaut
+  titleEmpty: false, // "Toutes" n'est pas affiché par défaut
+  label: "", // Pas de label par défaut
+  type: "normal", // Type normal par défaut
+  name: "select", // Nom par défaut
+};
 
-export default Select;
+export default Select; // Exporte le composant Select pour une utilisation externe
