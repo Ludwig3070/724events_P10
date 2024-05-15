@@ -1,15 +1,18 @@
 import PropTypes from "prop-types";
-
 import "./style.scss";
 
+// Types de boutons disponibles
 export const BUTTON_TYPES = {
   DEFAULT: 1,
   SUBMIT: 2,
 };
 
+// Composant Button
 const Button = ({ title, onClick, type, disabled, children }) => {
+  // Logique de rendu en fonction du type de bouton
   switch (type) {
     case BUTTON_TYPES.DEFAULT:
+      // Rendu d'un bouton par défaut
       return (
         <button
           type="button"
@@ -23,6 +26,7 @@ const Button = ({ title, onClick, type, disabled, children }) => {
         </button>
       );
     case BUTTON_TYPES.SUBMIT:
+      // Rendu d'un bouton de type submit
       return (
         <input
           disabled={disabled}
@@ -35,6 +39,7 @@ const Button = ({ title, onClick, type, disabled, children }) => {
         />
       );
     default:
+      // Rendu par défaut d'un bouton
       return (
         <button
           type="button"
@@ -50,20 +55,22 @@ const Button = ({ title, onClick, type, disabled, children }) => {
   }
 };
 
-// eslint-disable-next-line react/no-typos
+// Définition des types de props
 Button.propTypes = {
-  title: PropTypes.string,
-  onClick: PropTypes.func,
-  type: PropTypes.number,
-  disabled: PropTypes.bool,
-  children: PropTypes.node,
+  title: PropTypes.string, // Titre du bouton (pour l'infobulle)
+  onClick: PropTypes.func, // Fonction à exécuter lors du clic sur le bouton
+  type: PropTypes.number, // Type de bouton (parmi les valeurs de BUTTON_TYPES)
+  disabled: PropTypes.bool, // Indique si le bouton est désactivé
+  children: PropTypes.node, // Contenu du bouton
 };
+
+// Définition des valeurs par défaut des props
 Button.defaultProps = {
-  disabled: false,
-  onClick: () => null,
-  type: BUTTON_TYPES.DEFAULT,
-  title: "",
-  children: null
-}
+  disabled: false, // Par défaut, le bouton n'est pas désactivé
+  onClick: () => null, // Par défaut, aucune fonction n'est exécutée lors du clic sur le bouton
+  type: BUTTON_TYPES.DEFAULT, // Par défaut, le type de bouton est DEFAULT
+  title: "", // Par défaut, pas de titre
+  children: null // Par défaut, pas de contenu dans le bouton
+};
 
 export default Button;

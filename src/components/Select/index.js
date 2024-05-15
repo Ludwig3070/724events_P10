@@ -22,7 +22,7 @@ const Select = ({
   // Fonction pour changer la valeur sélectionnée
   const changeValue = (newValue) => {
     setValue(newValue); // Met à jour la valeur sélectionnée
-    onChange(newValue); // Appelle la fonction onChange passée en props   
+    onChange(newValue); // Appelle la fonction onChange passée en props  MODIF 
     setCollapsed(true); // Rétracte le sélecteur
   };
 
@@ -69,7 +69,7 @@ const Select = ({
           )}
         </ul>
 
-        {/* Input hidden pour stocker la valeur sélectionnée */}
+        {/* Input hidden pour stocker la valeur sélectionnée , value et name sont des props passées au composant. Le champ <input> sera invisible sur la page mais quand le formulaire est soumis, il enverra les données définies par value avec le nom spécifié par name. */}
         <input type="hidden" value={value || ""} name={name} />
 
         {/* Bouton pour ouvrir/fermer le sélecteur */}

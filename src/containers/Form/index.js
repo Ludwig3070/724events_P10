@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import Field, { FIELD_TYPES } from "../../components/Field"; // Import du composant Field et ses types
 import Select from "../../components/Select"; // Import du composant Select
@@ -9,7 +9,7 @@ const mockContactApi = () => new Promise((resolve) => { setTimeout(resolve, 1000
 
 const Form = ({ onSuccess, onError }) => {
   const [sending, setSending] = useState(false); // État pour indiquer si le formulaire est en train d'être envoyé
-
+  const formRef = useRef(null); // Référence à l'élément form  AJOUT
   // Fonction pour envoyer les données de contact
   const sendContact = useCallback(
     async (evt) => {
@@ -19,6 +19,8 @@ const Form = ({ onSuccess, onError }) => {
       try {
         await mockContactApi(); // Attend la résolution de la promesse de mockContactApi
         setSending(false); // Indique que l'envoi est terminé
+        formRef.current.reset(); // Réinitialise le formulaire AJOUT
+        onSuccess() // AJOUT Appelle de la fonction onSuccess en cas de succes
       } catch (err) {
         setSending(false); // Indique que l'envoi est terminé en cas d'erreur
         onError(err); // Appelle la fonction onError passée en props en cas d'erreur
@@ -26,9 +28,9 @@ const Form = ({ onSuccess, onError }) => {
     },
     [onSuccess, onError] // Dépendances : onSuccess et onError
   );
-
+  console.log (onSuccess)
   return (
-    <form onSubmit={sendContact}> {/* Soumission du formulaire appelle la fonction sendContact */}
+    <form ref={formRef} onSubmit={sendContact}> {/* Soumission du formulaire appelle la fonction sendContact , AJOUT DE formRef*/}
       <div className="row">
         <div className="col">
           {/* Champs de saisie pour le nom, le prénom, l'email et le type de contact */}
@@ -39,12 +41,14 @@ const Form = ({ onSuccess, onError }) => {
             onChange={() => null} // Fonction onChange, non implémentée ici
             label="Personnel / Entreprise" // Label pour le sélecteur
             type="large" // Type de sélecteur
-            titleEmpty // Indique si le titre peut être vide
+            titleEmpty // true => le champ est vide au depart
           />
           <Field placeholder="" label="Email" /> {/* Champ de saisie pour l'email */}
           {/* Bouton d'envoi */}
-          <Button type={BUTTON_TYPES.SUBMIT} disabled={sending}> {/* Type de bouton : SUBMIT */}
-            {sending ? "En cours" : "Envoyer"} {/* Texte du bouton selon l'état d'envoi */}
+          <Button type={BUTTON_TYPES.SUBMIT} disabled={sending}> 
+          {/* Type de bouton : SUBMIT */}
+            {sending ? "En cours" : "Envoyer"} 
+            {/* Texte du bouton selon l'état d'envoi */}
           </Button>
         </div>
         <div className="col">

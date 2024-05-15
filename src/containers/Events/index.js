@@ -2,7 +2,6 @@
 
  */
 
-
 import { useState } from "react";
 import EventCard from "../../components/EventCard"; // Import du composant EventCard
 import Select from "../../components/Select"; // Import du composant Select
@@ -19,9 +18,17 @@ const EventList = () => {
   const [type, setType] = useState(); // État pour le type d'événement sélectionné
   const [currentPage, setCurrentPage] = useState(1); // État pour la page actuelle
 
-  // Filtrage des événements en fonction du type et de la pagination
+  // Filtrage des événements en fonction du type et de la pagination (MOFIF)
+  /* Si type est défini, les événements sont filtrés pour ne conserver que ceux qui ont le même type que type. */
+  /* Ensuite, les événements sont filtrés en fonction de leur position dans la pagination. Seuls les événements compris entre (currentPage - 1) * PER_PAGE (indice de début de la page) et PER_PAGE * currentPage - 1 (indice de fin de la page) sont conservés. */
+  /* (!type ? data?.events : data?.events.filter(event => event.type === type)) || [] : Cela filtre les événements en fonction du type. Si type est null, undefined ou une valeur falsy, tous les événements sont conservés, sinon ils sont filtrés pour ne conserver que ceux dont le type correspond à type.
+
+  .filter((event, index) => { ... }) : Cela filtre ensuite les événements en fonction de la pagination. Seuls les événements compris entre l'indice de début de la page et l'indice de fin de la page sont conservés.
+ */
   const filteredEvents = (
-    (!type ? data?.events : data?.events.filter(event => event.type === type)) || []
+    (!type
+      ? data?.events
+      : data?.events.filter((event) => event.type === type)) || []
   ).filter((event, index) => {
     if (
       (currentPage - 1) * PER_PAGE <= index &&
@@ -44,12 +51,12 @@ const EventList = () => {
   // Création d'une liste des types d'événements uniques
   const typeList = new Set(data?.events.map((event) => event.type));
 
- console.log("filteredEvents",filteredEvents);
   
-  
+
   return (
     <>
-      {error && <div>An error occured</div>} {/* Affichage d'un message d'erreur en cas d'erreur */}
+      {error && <div>An error occured</div>}{" "}
+      {/* Affichage d'un message d'erreur en cas d'erreur */}
       {data === null ? (
         "loading" // Affichage de "loading" pendant le chargement des données
       ) : (
@@ -58,8 +65,7 @@ const EventList = () => {
           {/* Sélecteur de type d'événement */}
           <Select
             selection={Array.from(typeList)} // Liste des types d'événements
-            onChange={(type) => (type ? changeType(type) : changeType(null))}
-            
+            onChange={(type) => (type ? changeType(type) : changeType(null))}// MODIF
           />
           {/* Liste des événements */}
           <div id="events" className="ListContainer">

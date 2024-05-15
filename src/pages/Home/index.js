@@ -113,9 +113,10 @@ const Page = () => {
               </div>
             }
           >
+          {/* {({ setIsOpened }) => (...)} est utilisé pour rendre un enfant qui prend comme argument setIsOpened. Cet enfant est une fonction qui reçoit setIsOpened en tant que paramètre. */}
             {({ setIsOpened }) => (
               <Form
-                onSuccess={() => setIsOpened(true)}
+                onSuccess={() => setIsOpened(true)} // Lorsque le formulaire est soumis avec succès, la modal est ouverte
                 onError={() => null}
               />
             )}

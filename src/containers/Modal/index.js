@@ -4,20 +4,20 @@ import Icon from "../../components/Icon";
 import "./style.scss";
 
 const Modal = ({ opened, Content, children }) => {
-  const [isOpened, setIsOpened] = useState(opened);
+  const [isOpened, setIsOpened] = useState(opened); // État local pour contrôler l'ouverture et la fermeture du modal
   return (
     <>
-      {children({ isOpened, setIsOpened })}
-      {isOpened && (
+      {children({ isOpened, setIsOpened })} {/* Rendu de l'enfant (probablement un bouton) pour déclencher l'ouverture du modal */}
+      {isOpened && ( // Condition pour afficher le modal
         <div className="modal">
           <div className="content">
-            {Content}
+            {Content} {/* Le contenu du modal */}
             <button
               type="button"
               data-testid="close-modal"
-              onClick={() => setIsOpened(false)}
+              onClick={() => setIsOpened(false)} // Gère la fermeture du modal
             >
-              <Icon name="close" />
+              <Icon name="close" /> {/* Bouton de fermeture du modal */}
             </button>
           </div>
         </div>
@@ -27,13 +27,13 @@ const Modal = ({ opened, Content, children }) => {
 };
 
 Modal.defaultProps = {
-  opened: false,
+  opened: false, // Valeur par défaut de la prop 'opened'
 }
 
 Modal.propTypes = {
-  opened: PropTypes.bool,
-  Content: PropTypes.node.isRequired,
-  children: PropTypes.func.isRequired,
+  opened: PropTypes.bool, // Prop 'opened' doit être un booléen
+  Content: PropTypes.node.isRequired, // Prop 'Content' doit être un nœud React
+  children: PropTypes.func.isRequired, // Prop 'children' doit être une fonction
 }
 
 export default Modal;
