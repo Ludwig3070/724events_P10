@@ -21,6 +21,7 @@ describe("When Menu is created", () => {
         })
       );
       expect(window.document.location.hash).toEqual("#contact");
+      {/* .hash: C'est une des propriétés de window.document.location, qui représente la partie du fragment de l'URL après le caractère dièse (#). Par exemple, si l'URL est http://exemple.com/page#contact, alors window.document.location.hash sera égal à #contact. */}
     });
   });
 });

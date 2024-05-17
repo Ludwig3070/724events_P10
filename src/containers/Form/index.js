@@ -28,7 +28,7 @@ const Form = ({ onSuccess, onError }) => {
     },
     [onSuccess, onError] // Dépendances : onSuccess et onError
   );
-  console.log (onSuccess)
+  
   return (
     <form ref={formRef} onSubmit={sendContact}> {/* Soumission du formulaire appelle la fonction sendContact , AJOUT DE formRef*/}
       <div className="row">

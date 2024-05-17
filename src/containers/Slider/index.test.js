@@ -36,7 +36,7 @@ describe("When slider is created", () => {
       </DataProvider>
     );
     await screen.findByText("World economic forum");
-    await screen.findByText("Evenement mondial autour de la ferme");//janvier n'existe pas dans le texte =>remplacement
+    await screen.findByText("Evenement mondial autour de la ferme");//AJOUT janvier n'existe pas dans le texte =>remplacement
     await screen.findByText(
       "Oeuvre à la coopération entre le secteur public et le privé."
     );

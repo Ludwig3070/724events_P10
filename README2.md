@@ -6,3 +6,6 @@
 
 [generer un key unique](https://bobbyhadz.com/blog/react-generate-unique-id)
 
+[when given then](https://www.youtube.com/watch?v=EyPvxewx3bk)
+
+[les mocks](https://www.youtube.com/watch?v=mE18K1L4ePQ&t=55s)
