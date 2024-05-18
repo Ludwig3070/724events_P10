@@ -45,16 +45,16 @@ describe("When Events is created", () => {
         <EventList />
       </DataProvider>
     );
-    console.log("=====================")
+    
     expect (await screen.findAllByText("avril")).toHaveLength(2); // test modifié qui ne fonctionnait pas (findAllByText) et toHaveLength(2)
     
   });
    describe("and an error occured", () => {
     it("an error message is displayed", async () => {
       
-      console.log("api.loadData before mock", api.loadData)
+      
       api.loadData = jest.fn().mockRejectedValue(new Error("Failed to load data"));// Ajout de new Error("Failed to load data")
-      console.log("api.loadData",api.loadData);
+      
       render(
         <DataProvider>
           <EventList />

@@ -26,11 +26,13 @@ describe("When a data context is created", () => { // Définition d'un bloc de t
         const { error } = useData(); // Utilisation du hook useData pour obtenir les erreurs du contexte
         return <div>{error}</div>; // Rendu de l'erreur
       };
+      
       render( // Rendu du composant à tester
         <DataProvider>
           <Component />
         </DataProvider>
       );
+      
       const dataDisplayed = await screen.findByText("error on calling events"); // Recherche du texte affiché dans le composant
       expect(dataDisplayed).toBeInTheDocument(); // Vérification que le texte est présent dans le DOM
     });

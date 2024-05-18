@@ -17,7 +17,7 @@ const EventList = () => {
   const { data, error } = useData(); // Récupération des données et erreurs depuis le contexte DataContext
   const [type, setType] = useState(); // État pour le type d'événement sélectionné
   const [currentPage, setCurrentPage] = useState(1); // État pour la page actuelle
-  console.log(error)
+ 
   // Filtrage des événements en fonction du type et de la pagination (MOFIF)
   /* Si type est défini, les événements sont filtrés pour ne conserver que ceux qui ont le même type que type. */
   /* Ensuite, les événements sont filtrés en fonction de leur position dans la pagination. Seuls les événements compris entre (currentPage - 1) * PER_PAGE (indice de début de la page) et PER_PAGE * currentPage - 1 (indice de fin de la page) sont conservés. */
