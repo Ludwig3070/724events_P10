@@ -1,4 +1,4 @@
-/* Ce composant affiche une liste d'événements avec une pagination et un sélecteur de type d'événement. Il utilise également un Modal pour afficher les détails de chaque événement.
+/* Ce composant affiche une liste d'événements avec une pagination et un sélecteur de type d'événement. Il utilise également une Modale pour afficher les détails de chaque événement.
 
  */
 
@@ -65,7 +65,7 @@ const EventList = () => {
           {/* Sélecteur de type d'événement */}
           <Select
             selection={Array.from(typeList)} // Liste des types d'événements
-            onChange={(type) => (type ? changeType(type) : changeType(null))}// MODIF
+            onChange={(type) => (type ? changeType(type) : changeType(null))} // MODIF
           />
           {/* Liste des événements */}
           <div id="events" className="ListContainer">

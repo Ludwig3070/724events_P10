@@ -25,7 +25,7 @@ const data = {//donnees mockees
     },
   ],
 };
-
+//SCENARIO 7
 describe("When slider is created", () => {
   it("a list card is displayed", async () => {
     window.console.error = jest.fn();//evite l'affichage des erreurs en console
@@ -36,7 +36,7 @@ describe("When slider is created", () => {
       </DataProvider>
     );
     await screen.findByText("World economic forum");
-    await screen.findByText("Evenement mondial autour de la ferme");//AJOUT janvier n'existe pas dans le texte =>remplacement
+    await screen.findByText("janvier");
     await screen.findByText(
       "Oeuvre à la coopération entre le secteur public et le privé."
     );

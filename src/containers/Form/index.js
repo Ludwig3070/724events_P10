@@ -30,7 +30,7 @@ const Form = ({ onSuccess, onError }) => {
   );
   
   return (
-    <form ref={formRef} onSubmit={sendContact}> {/* Soumission du formulaire appelle la fonction sendContact , AJOUT DE formRef*/}
+    <form ref={formRef} onSubmit={sendContact}> {/* Soumission du formulaire appelle la fonction sendContact , AJOUT DE formRef */}
       <div className="row">
         <div className="col">
           {/* Champs de saisie pour le nom, le prénom, l'email et le type de contact */}

@@ -9,3 +9,14 @@
 [when given then](https://www.youtube.com/watch?v=EyPvxewx3bk)
 
 [les mocks](https://www.youtube.com/watch?v=mE18K1L4ePQ&t=55s)
+
+[act()](https://www.youtube.com/watch?v=W7CbUiO3_28)
+
+[waitFor](https://www.youtube.com/watch?v=iG-G10rCzCw)
+
+[act()](https://fr.legacy.reactjs.org/docs/testing-recipes.html#act)
+
+[waitFor](https://stackoverflow.com/questions/65725591/react-testing-library-how-to-use-waitfor)
+
+
+

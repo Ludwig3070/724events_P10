@@ -1,15 +1,19 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Form from "./index";
 
-describe("When Events is created", () => {
-  it("a list of event card is displayed", async () => {
+//SCENARIO 5
+describe("When Form is created", () => {
+  it("should have a form displayed", async () => {
     render(<Form />);
     await screen.findByText("Email");
     await screen.findByText("Nom");
     await screen.findByText("Prénom");
-    await screen.findByText("Personnel / Entreprise");
+    await screen.findByText("Personnel / Entreprise"); //MOFIF
+    await screen.findByText("Message"); //AJOUT
   });
 
+
+  //SCENARIO 6
   describe("and a click is triggered on the submit button", () => {
     it("the success action is called", async () => {
       const onSuccess = jest.fn();
